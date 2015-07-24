@@ -11,5 +11,6 @@ from serverFacade import ServerFacade
 serverFacade = ServerFacade()
 serverFacade.getClientKey()
 serverFacade.getToken()
+serverFacade.getSenderId()
 
  # print result
