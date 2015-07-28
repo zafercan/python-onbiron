@@ -1,0 +1,85 @@
+{
+
+    "CODES": 
+
+{
+
+    "INFO": "500A",
+    "POLICY": "500P",
+    "LOCATION": "501A",
+    "MONITORING": "501P",
+    "APPLIST": "502A",
+    "REVOKEPOLICY": "502P",
+    "LOCK": "503A",
+    "WIPE": "504A",
+    "CLEARPASSCODE": "505A",
+    "NOTIFICATION": "506A",
+    "WIFI": "507A",
+    "CAMERA": "508A",
+    "INSTALLAPP": "509A",
+    "INSTALL_APPLICATION_BUNDLE": "509B",
+    "UNINSTALLAPP": "510A",
+    "ENCRYPT": "511A",
+    "APN": "512A",
+    "MUTE": "513A",
+    "WEBCLIP": "518A",
+    "PASSWORDPOLICY": "519A",
+    "EMAIL": "520A",
+    "GOOGLECALENDAR": "521A",
+    "VPN": "523A",
+    "LDAP": "524A",
+    "CHANGEPASSWORD": "526A",
+    "ENTERPRISEWIPE": "527A",
+    "BLACKLISTAPPS": "528B",
+    "WHITELISTAPPS": "529B",
+    "GPSONOFF": "540A",
+    "MOBILEDATAONOFF": "541A",
+    "WIFIONOFF": "542A",
+    "BLUETOOTHONOFF": "543A",
+    "USBONOFF": "544A",
+    "FLASHMEMORYONOFF": "545A",
+    "MICROPHONEONOFF": "546A",
+    "SETTINGS_ACCOUNTS_AND_SYNC": "547A",
+    "SETTINGS_SECURITY": "548A",
+    "SETTINGS_DATE_AND_TIME": "549A",
+    "SETTINGS_DEVELOPER_OPTIONS": "550A",
+    "SETTINGS_AIRPLANE_MODE": "551A",
+    "SETTINGS_WIFI": "552A",
+    "FETCH_ERROR_REPORT": "553A"
+
+},
+"PERMISSIONS": 
+{
+
+    "defaultAdminPermssion": 
+
+        [
+            "ENTERPRISEWIPE",
+            "ENCRYPT",
+            "MUTE",
+            "CAMERA",
+            "CLEARPASSCODE",
+            "WIPE",
+            "LOCK",
+            "NOTIFICATION",
+            "CHANGEPASSWORD",
+            "LDAP",
+            "VPN",
+            "GOOGLECALENDAR",
+            "EMAIL",
+            "PASSWORDPOLICY",
+            "WEBCLIP",
+            "APN",
+            "WIFI",
+            "GPSONOFF",
+            "MOBILEDATAONOFF",
+            "WIFIONOFF",
+            "BLUETOOTHONOFF",
+            "USBONOFF",
+            "FLASHMEMORYONOFF",
+            "MICROPHONEONOFF",
+            "FETCHERRORREPORT"
+        ]
+    }
+
+}
