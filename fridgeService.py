@@ -8,14 +8,22 @@ from serverFacade import ServerFacade
 
  
 serverFacade = ServerFacade.getInstance()
-#serverFacade.getClientKey()
-#serverFacade.getToken()
-#serverFacade.getSenderId()
-#serverFacade.getLicense()
-#if serverFacade.getRegister() == True:
-#    if serverFacade.getIsRegistered() == True:
-mqttc = MqttClient('client1')
-serverFacade.initMonitoring()       
-#serverFacade.Unregister()
+serverFacade.initiateRegistration()
+
+if serverFacade.registerDevice() == True:
+    if serverFacade.isRegistered() == True:
+        mqttc = MqttClient('client1')
+        serverFacade.initMonitoring()   
+    else:
+        serverFacade.initiateRegistration()
+        serverFacade.registerDevice()
+else:
+    serverFacade.unregister()
+    serverFacade.initiateRegistration()
+    serverFacade.registerDevice()
+    mqttc = MqttClient('client1')
+    serverFacade.initMonitoring()
+    
+    
 
 

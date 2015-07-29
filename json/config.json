@@ -1,0 +1,18 @@
+{
+    "CONFIG":
+        {
+        "PARAM_USERNAME" : "",
+        "PARAM_PASSWORD" : "",
+        "DEFAULT_POST_HEADER" : {"Content-type": "application/x-www-form-urlencoded","Authorization": ""},
+        "DEFAULT_VALUES" : {"username": "", "password": ""},
+        "PARAM_PLATFORM" : "Android",
+        "PARAM_USER_AGENT" : "Linux Android",
+        "PARAM_REGID" : "",
+        "PARAM_PROPERTIES" : {"device":"fridge","imei":"1234567890abcde","imsi":"310260000000000","model":"Grundig Fridge","fw_ver":2.3,"agent_ver":1},
+        "PARAM_VENDOR" : "Grundig",
+        "PARAM_MAC" : "08:00:27:66:fa:d4",
+        "PARAM_TYPE" : "BYOD",
+        "PARAM_OSVERSION" : ""
+        }
+}
+ 

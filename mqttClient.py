@@ -16,7 +16,7 @@ class MqttClient(object):
         client.on_subscribe = self.on_subscribe.__func__
         client.on_publish = self.on_publish.__func__
         
-        client.connect('193.140.63.159', 1903, 60)
+        client.connect(server.brokerIp, 1903, 60)
         client.loop_forever()
         
     
@@ -34,13 +34,7 @@ class MqttClient(object):
     def on_publish(mqttc, obj, mid):
         print 'PUBLISHED! ' + str(mid)
 
-    def on_subscribe(
-        mqttc,
-        obj,
-        mid,
-        granted_qos,
-        ):
-
+    def on_subscribe(mqttc, obj, mid, granted_qos):
         print 'SUBSCRIBED! - ' + str(mid) + ' ' + str(granted_qos)
 
 
