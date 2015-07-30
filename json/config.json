@@ -13,6 +13,11 @@
         "PARAM_MAC" : "08:00:27:66:fa:d4",
         "PARAM_TYPE" : "BYOD",
         "PARAM_OSVERSION" : ""
+        },
+    "FEATURE_DATA":
+        {
+        "INFO" : [{"data":[{"package":"com.onbiron.iot.agent","icon":"","name":"IoT Agent"}],"status":"true","code":"502A"}],
+        "APPLIST" : [{"data":{"location_obj":{"longitude":32.7758713,"latitude":39.898896},"operator":["Android"],"external_memory":{"total":4.84,"available":4.75},"storage":{"total":4.8,"available":4.5},"battery":{"level":78},"agent":{"battery":20,"cpu":5,"memory":25}},"status":"true","code":"500A"}]
         }
 }
  

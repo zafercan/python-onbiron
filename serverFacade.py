@@ -7,8 +7,7 @@ import json
 import base64
 from decorator import Singleton
 from operation import Operation
-import platform
-from uuid import getnode as get_mac
+from systemInfo import SystemInfo
 
 # get - post operations
 @Singleton
@@ -20,8 +19,7 @@ class ServerFacade(object):
     clientSecret = ''
     accessToken = ''
     brokerIp = ''
-    brokerPort = ''
-    jsonData = ''
+    brokerPort = '' 
     operation = None
     mac = ''
     configs = ''
@@ -42,17 +40,29 @@ class ServerFacade(object):
     API_ISREGISTERED = '/emm/api/devices/isregistered/1.0.0'
     API_UNREGISTER = '/emm/api/devices/unregister/1.0.0'
     API_NOTIFICATION = '/emm/api/notifications/pendingOperations/1.0.0'
-            
+    
+    #load config file
     with open('json/config.json') as config_file:    
         configs = json.load(config_file) 
-        
-    mac = get_mac()
-    configs['CONFIG']['PARAM_REGID'] = mac
-    configs["CONFIG"]["PARAM_OSVERSION"] = platform.dist()[1]
-    configs['CONFIG']['PARAM_MAC'] = mac
+    
+    system = SystemInfo()
+    
+    # update config file
+    configs['CONFIG']['PARAM_REGID'] = system.getRegId()
+    configs["CONFIG"]["PARAM_OSVERSION"] = system.getOsVersion()
+    configs['CONFIG']['PARAM_MAC'] = system.getWlanMac()
     configs['CONFIG']['DEFAULT_VALUES']['username'] = configs['CONFIG']['PARAM_USERNAME']
     configs['CONFIG']['DEFAULT_VALUES']['password'] = configs['CONFIG']['PARAM_PASSWORD']
-    configs['CONFIG']['PARAM_PROPERTIES']['fw_ver'] = float(platform.dist()[1])
+    configs['CONFIG']['PARAM_PROPERTIES']['fw_ver'] = system.getFWVersion()
+    
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['storage']['total'] = system.getTotalDiskSpace()
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['storage']['available'] = system.getFreeDiskSpace()
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['agent']['cpu'] = system.getCpuUsage()
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['agent']['memory'] = system.getTotalRam()
+    
+    location = system.getLocation()
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['location_obj']['longitude'] = location['longitude']
+    configs['FEATURE_DATA']['APPLIST'][0]['data']['location_obj']['latitude'] = location['latitude']
     
     # parameters
     
@@ -63,7 +73,7 @@ class ServerFacade(object):
     PARAM_PLATFORM = configs['CONFIG']['PARAM_PLATFORM']
     PARAM_USER_AGENT = configs['CONFIG']['PARAM_USER_AGENT']
     PARAM_REGID = str(configs['CONFIG']['PARAM_REGID'])
-    PARAM_PROPERTIES = '{"device":"fridge","imei":"1234567890abcde","imsi":"310260000000000","model":"Grundig Fridge","fw_ver":2.3,"agent_ver":1}'
+    PARAM_PROPERTIES = configs['CONFIG']['PARAM_PROPERTIES']
     PARAM_VENDOR = configs['CONFIG']['PARAM_VENDOR']
     PARAM_MAC = configs['CONFIG']['PARAM_MAC']
     PARAM_TYPE = configs['CONFIG']['PARAM_TYPE']
@@ -87,10 +97,10 @@ class ServerFacade(object):
         print read + '\n'
 
         try:
-            json_object = json.loads(read)
+            responseJsonObject = json.loads(read)
         except ValueError, e:
             return read
-        return json_object
+        return responseJsonObject
 
     def generateBasicAuthorizationString(self):
         title = 'Basic '
@@ -179,12 +189,12 @@ class ServerFacade(object):
         self.DEFAULT_VALUES['regId'] = self.PARAM_REGID
         return self.postResponse(api, method)
          
-    def sendPendingNotifications(self, json_data):
+    def sendPendingNotifications(self, notificationData):
         api = self.API_NOTIFICATION
         method = 'POST'
         self.DEFAULT_POST_HEADER['Authorization'] = self.generateBearerAuthorizationString()
         self.DEFAULT_VALUES['regId'] = self.PARAM_REGID
-        self.DEFAULT_VALUES['data'] = json_data
+        self.DEFAULT_VALUES['data'] = notificationData
         self.postResponse(api, method)
             
     def initMonitoring(self):
@@ -192,7 +202,7 @@ class ServerFacade(object):
         print 'DATAS : '
         print datas
         if datas != None:
-            json_data = self.operation.doOperation(datas, self.PARAM_REGID)
+            notificationData = self.operation.doOperation(datas, self.PARAM_REGID)
             #send response to the server
-            self.sendPendingNotifications(json_data)
+            self.sendPendingNotifications(notificationData)
         

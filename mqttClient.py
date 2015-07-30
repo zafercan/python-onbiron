@@ -19,7 +19,6 @@ class MqttClient(object):
         client.connect(server.brokerIp, 1903, 60)
         client.loop_forever()
         
-    
     def on_connect(client, userdata, rc):
         print 'Connected with result code ' + str(rc)
         client.subscribe(ServerFacade.getInstance().PARAM_REGID)
